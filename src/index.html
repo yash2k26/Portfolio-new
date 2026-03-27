@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Yash Bharadwaj (YB) is a Design Engineer building polished interfaces and shipped products. Based in Delhi, India." />
+    <meta name="author" content="Yash Bharadwaj" />
+    <meta name="keywords" content="Yash Bharadwaj, YB, Design Engineer, React, TypeScript, Portfolio, Solana, NOMI" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Yash Bharadwaj | Design Engineer" />
+    <meta property="og:description" content="Yash Bharadwaj (YB) is a Design Engineer building polished interfaces and shipped products. Based in Delhi, India." />
+    <meta property="og:site_name" content="Yash Bharadwaj" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="554" />
+    <meta property="og:image:alt" content="Yash Bharadwaj Portfolio" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Yash Bharadwaj | Design Engineer" />
+    <meta name="twitter:description" content="Yash Bharadwaj (YB) is a Design Engineer building polished interfaces and shipped products. Based in Delhi, India." />
+    <meta name="twitter:image:alt" content="Yash Bharadwaj Portfolio" />
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+
+    <title>Yash Bharadwaj | Design Engineer</title>
+
+    <script>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'light' || (!stored && !prefersDark)) {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>

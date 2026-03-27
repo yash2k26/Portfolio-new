@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", "Inter", sans-serif;
+}
+
+:root {
+  --bg-primary: #f8f8f7;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ebebea;
+  --text-primary: #171717;
+  --text-secondary: #404040;
+  --text-muted: #737373;
+  --border-color: #dcdcda;
+  --accent: #000000;
+  --text-highlight: #262626; 
+  
+  --contrib-0: #e5e7eb; 
+  --contrib-1: #bbf7d0; 
+  --contrib-2: #86efac; 
+  --contrib-3: #4ade80; 
+  --contrib-4: #22c55e; 
+}
+
+.dark {
+  --bg-primary: #161616;
+  --bg-secondary: #1C1C1C;
+  --bg-tertiary: #202020;
+  --text-primary: #f5f5f5;
+  --text-secondary: #A3A3A3;
+  --text-muted: #737373;
+  --border-color: #333333;
+  --accent: #ffffff;
+  --text-highlight: #d4d4d4;
+  
+  --contrib-0: #1f1f1f; 
+  --contrib-1: #064e3b; 
+  --contrib-2: #10b981; 
+  --contrib-3: #34d399; 
+  --contrib-4: #6ee7b7; 
+}
+
+body {
+  font-family: 'Geist', 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg-primary); 
+  color: var(--text-primary);
+}
+
+@keyframes text-flip {
+  0%, 45% { transform: translateY(0); }
+  50%, 95% { transform: translateY(-33.33%); }
+  100% { transform: translateY(-66.66%); }
+}
+
+.animate-flip {
+  animation: text-flip 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.fade-mask {
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+.badge-react { color: #61dafb; }
+.badge-typescript { color: #3178c6; }
+.badge-bun { color: #fbf0df; }
+.badge-nodejs { color: #339933; }
+.badge-mongodb { color: #47a248; }
+.badge-postgresql { color: #336791; }
+.badge-prisma { color: #5a67d8; }
+.badge-docker { color: #2496ed; }
+.badge-tailwind { color: #38bdf8; }
+.badge-nextjs { color: var(--text-primary); } 
+
+.contrib-0 { background-color: var(--contrib-0); }
+.contrib-1 { background-color: var(--contrib-1); }
+.contrib-2 { background-color: var(--contrib-2); }
+.contrib-3 { background-color: var(--contrib-3); }
+.contrib-4 { background-color: var(--contrib-4); }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.wavy-link {
+  text-decoration: underline wavy #3b82f6; 
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  transition: all 0.2s ease-out;
+  color: var(--text-primary);
+}
+
+.wavy-link:hover {
+  text-decoration-color: #60a5fa; 
+  color: #3b82f6;
+}
+
