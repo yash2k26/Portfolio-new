@@ -558,9 +558,16 @@ export function App() {
                 <span className="font-medium text-(--text-primary)">
                   Solana dApp Store
                 </span>
-                , gained real user traction post-launch. Obsessed with
-                motion, interaction design, and the details that make
-                products feel alive.
+                , now generating revenue with real user traction.
+                <br />
+                Currently building{" "}
+                <span className="font-medium text-(--text-primary)">
+                  Aurora
+                </span>
+                {" "}-
+                an AI-powered personal growth journal for daily reflection,
+                streak and pattern tracking, and assistant-led conversations
+                with journal entries for deeper insights.
               </p>
 
               <div className="flex flex-col gap-3">
