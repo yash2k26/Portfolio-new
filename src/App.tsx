@@ -448,8 +448,8 @@ export function App() {
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
                 <SectionMinimal title="Project Details">
                   {project.video && (
-                    <div className="w-full rounded-2xl border border-(--border-color) bg-(--bg-secondary) mb-10 flex items-center justify-center py-8">
-                      <div className="w-56 rounded-2xl overflow-hidden border border-(--border-color) shadow-md">
+                    <div className="w-full rounded-2xl border border-(--border-color) bg-(--bg-secondary) mb-10 flex items-center justify-center px-4 py-8 md:px-6">
+                      <div className="w-full max-w-[42rem] rounded-2xl overflow-hidden border border-(--border-color) shadow-md">
                         <LazyVideo
                           src={project.video}
                           className="w-full h-auto"

@@ -58,7 +58,7 @@ export const FloatingToolbar = ({
       <AnimatePresence>
         {hoveredId && (
           <motion.div
-            className="absolute top-1/2 -translate-y-1/2 left-0 rounded-xl bg-(--bg-tertiary)"
+            className="absolute  top-1/2 -translate-y-1/2 left-0 rounded-xl bg-(--bg-tertiary)"
             style={{ width: ITEM_SIZE, height: ITEM_SIZE }}
             initial={{ opacity: 0, x: bgX, scale: 0.95 }}
             animate={{ opacity: 1, x: bgX, scale: 1 }}
