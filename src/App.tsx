@@ -3,9 +3,11 @@ import nomiPortfolio from "./assets/NOMI-portfolio.jpg"
 import nomiHackathonImg from "./assets/NOmi-portfoli.jpg"
 import predictProImg from "./assets/Predict-Pro.png"
 import saasImg from "./assets/SaasAnalytics.png"
+import dysonImg from "./assets/dyson.png"
 import creditCardImg from "./assets/CreditCard.png"
 import aiSendImg from "./assets/AI_send.png"
-import acternitykeyboardImg from "./assets/Acternity_keyboard.png"
+import spideyFifaImg from "./assets/spidey-fifa.png"
+import bubbleNavbarImg from "./assets/bubblenavbar.png"
 import { GitHubCalendar } from 'react-github-calendar';
 import { useState, useEffect } from "react";
 import "./index.css";
@@ -146,11 +148,11 @@ export function App() {
       id: "nomi",
       title: "NOMI",
       description:
-        "A mobile Solana dApp where you own and care for a living virtual companion NFT. Feed it, dress it, evolve it — every action is a real on-chain transaction.",
+        "A mobile Solana dApp where you own and care for a living virtual companion NFT. Feed it, dress it, evolve it - every action is a real on-chain transaction. Published on the Solana dApp Store, with active users, revenue, and 72+ reviews.",
       tech: ["React Native", "Expo", "TypeScript", "React Three Fiber", "Three.js", "NativeWind", "Zustand", "Solana Web3.js", "Metaplex", "Wallet Adapter"],
       roles: [{ name: "Design Engineer", type: "design" }] as const,
       githubUrl: "https://github.com/yash2k26/NomiApp",
-      liveUrl: undefined as string | undefined,
+      liveUrl: "https://x.com/Yassshhu/status/2029313865331425700",
       video: "/nomi.mp4",
       image: nomiPortfolio,
     },
@@ -162,6 +164,7 @@ export function App() {
       tech: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS v4", "Turborepo", "pnpm", "Node.js", "Express", "WebSockets", "Recharts", "Framer Motion"],
       roles: [{ name: "Design Engineer", type: "design" }] as const,
       githubUrl: "https://github.com/yash2k26/PreditPro",
+      liveUrl: "https://predictpro.yashb.xyz/",
       video: "/predictpro.mp4",
       image: predictProImg,
     },
@@ -169,20 +172,33 @@ export function App() {
       id: "saas-analytics",
       title: "SaaS Analytics",
       description:
-        "A multi-workspace analytics platform that tracks key product metrics — revenue, signups, page views, and button events — with live animated charts and a fully themeable UI. Users can switch between workspaces and create new ones, with each workspace showing its own distinct dataset.",
+        "A multi-workspace analytics platform that tracks key product metrics - revenue, signups, page views, and button events - with live animated charts and a fully themeable UI. Users can switch between workspaces and create new ones, with each workspace showing its own distinct dataset.",
       tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Recharts", "Motion", "Lucide React", "PostgreSQL", "Prisma", "JWT", "bcrypt", "Axios", "Express 5"],
       roles: [{ name: "Design Engineer", type: "design" }] as const,
       githubUrl: "https://github.com/yash2k26/SaasAnalystics",
+      liveUrl: "https://saas-analytics.yashb.xyz/",
       video: "/saasVideo.mp4",
       image: saasImg,
+    },
+    {
+      id: "dyson-landing-page",
+      title: "Dyson Landing Page",
+      description:
+        "A cinematic Dyson-inspired landing experience built with Next.js, React, Tailwind, and Motion. It uses smooth scroll-driven storytelling with frame-by-frame hero visuals, premium text reveals, and immersive product highlight sections to present headphone features in an Apple-like, high-end style.",
+      tech: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
+      roles: [{ name: "Design Engineer", type: "design" }] as const,
+      githubUrl: "https://github.com/yash2k26/DysonDashboard",
+      liveUrl: "https://dyson.yashb.xyz/",
+      video: "/dyson.mp4",
+      image: dysonImg,
     },
   ];
 
   const contributions = [
     {
-      title: "NOMI — Solana Mobile Hackathon",
+      title: "NOMI - Solana Mobile Hackathon",
       description:
-        "Designed and engineered NOMI — a living virtual companion NFT dApp — at the Solana Mobile Hackathon. 3D pet model, on-chain actions, listed on the Solana dApp Store.",
+        "Designed and engineered NOMI - a living virtual companion NFT dApp - at the Solana Mobile Hackathon. 3D pet model, on-chain actions, listed on the Solana dApp Store.",
       tech: ["React Native", "TypeScript", "Solana"],
       githubUrl: "https://github.com/yash2k26/NomiApp",
       image: nomiHackathonImg,
@@ -204,7 +220,7 @@ export function App() {
       description: "A stylized animated AI chat send button UI demo. Features a WebGL liquid metal shader effect on the button surface.",
       tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Motion", "WebGL Shaders"],
       image: aiSendImg,
-      liveUrl: "https://ai-send-button-pnid.vercel.app/",
+      liveUrl: "https://buttonai.yashb.xyz/",
       githubUrl: "https://github.com/yash2k26/AI-send-button",
     },
     {
@@ -212,16 +228,24 @@ export function App() {
       description: "An interactive credit card form with a live-preview card that animates as you type. Card flips to show front/back, digits animate in, and long names are auto-abbreviated.",
       tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "React Context"],
       image: creditCardImg,
-      liveUrl: "https://credit-card-ui.bharadwaj465.workers.dev/",
+      liveUrl: "https://creditcard.yashb.xyz/",
       githubUrl: "https://github.com/yash2k26/CreditCardComponent",
     },
     {
-      title: "Aceternity Keyboard",
-      description: "A macOS-style keyboard rendered entirely in React — all rows, function keys with Lucide icons, shift mappings, and arrow keys. Keys have a glowing shadow and scale-down hover animation.",
-      tech: ["React 19", "Vite 7", "JavaScript", "Tailwind CSS v4", "Lucide React"],
-      image: acternitykeyboardImg,
-      liveUrl: "https://aceternity-keyboard-ten.vercel.app/",
-      githubUrl: "https://github.com/yash2k26/ActernityKeyboard",
+      title: "Spidey FIFA Card Carousel",
+      description: "A Spider-Verse themed interactive card carousel built with Next.js, React, Tailwind CSS, and Framer Motion. It showcases multiple Spider-Man variants with custom images, animated 3D card tilt effects, smooth carousel transitions, and both button + keyboard arrow navigation.",
+      tech: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
+      image: spideyFifaImg,
+      liveUrl: "https://spidey-fifa-cards.yashb.xyz/",
+      githubUrl: "https://github.com/yash2k26/SpideyFifaCards",
+    },
+    {
+      title: "Bubble Navbar",
+      description: "A minimal Next.js app showcasing a centered, pill-shaped animated navbar built with React, Tailwind CSS, and Motion. It features interactive hover/click states with smooth transitions and a clean dark UI focused only on the navigation component.",
+      tech: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
+      image: bubbleNavbarImg,
+      liveUrl: "https://bubblenavbar.yashb.xyz/",
+      githubUrl: "https://github.com/yash2k26/BubbleNavbar",
     },
   ];
 
@@ -513,7 +537,7 @@ export function App() {
                 <span className="font-medium text-(--text-primary)">
                   Delhi, India
                 </span>
-                . I work at the intersection of design and code — turning
+                . I work at the intersection of design and code - turning
                 ideas into interfaces that feel{" "}
                 <span className="font-medium text-(--text-primary)">
                   just right
@@ -530,7 +554,7 @@ export function App() {
                 >
                   NOMI
                 </a>{" "}
-                — a production Solana dApp published on the{" "}
+                - a production Solana dApp published on the{" "}
                 <span className="font-medium text-(--text-primary)">
                   Solana dApp Store
                 </span>
@@ -599,7 +623,7 @@ export function App() {
                     Freelance
                   </span>
                 }
-                duration="2025 — Present"
+                duration="2025 - Present"
               />
               <ExperienceRow
                 role="Design Engineer"

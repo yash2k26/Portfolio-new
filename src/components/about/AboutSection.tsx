@@ -11,14 +11,7 @@ export const AboutSection = () => (
           alt="Yash Bharadwaj Avatar"
           width={128}
           height={128}
-          className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10"
-        />
-        <img
-          src={faviconImg}
-          alt="Yash Bharadwaj Avatar"
-          width={128}
-          height={128}
-          className="w-full h-full object-cover transition-transform duration-300 ease-out scale-100 group-hover:scale-[1.03] filter grayscale"
+          className="w-full h-full object-cover transition-transform duration-300 ease-out scale-100 group-hover:scale-[1.03]"
         />
       </div>
       <div>
