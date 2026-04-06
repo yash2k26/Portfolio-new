@@ -6,9 +6,6 @@ import saasImg from "./assets/SaasAnalytics.png"
 import creditCardImg from "./assets/CreditCard.png"
 import aiSendImg from "./assets/AI_send.png"
 import acternitykeyboardImg from "./assets/Acternity_keyboard.png"
-import predictproVideo from "./assets/predictpro.mp4"
-import nomiVideo from "./assets/nomi.mp4"
-import saasVideo from "./assets/saasVideo.mp4"
 import { GitHubCalendar } from 'react-github-calendar';
 import { useState, useEffect } from "react";
 import "./index.css";
@@ -154,7 +151,7 @@ export function App() {
       roles: [{ name: "Design Engineer", type: "design" }] as const,
       githubUrl: "https://github.com/yash2k26/NomiApp",
       liveUrl: undefined as string | undefined,
-      video: nomiVideo,
+      video: "/nomi.mp4",
       image: nomiPortfolio,
     },
     {
@@ -165,7 +162,7 @@ export function App() {
       tech: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS v4", "Turborepo", "pnpm", "Node.js", "Express", "WebSockets", "Recharts", "Framer Motion"],
       roles: [{ name: "Design Engineer", type: "design" }] as const,
       githubUrl: "https://github.com/yash2k26/PreditPro",
-      video: predictproVideo,
+      video: "/predictpro.mp4",
       image: predictProImg,
     },
     {
@@ -176,7 +173,7 @@ export function App() {
       tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Recharts", "Motion", "Lucide React", "PostgreSQL", "Prisma", "JWT", "bcrypt", "Axios", "Express 5"],
       roles: [{ name: "Design Engineer", type: "design" }] as const,
       githubUrl: "https://github.com/yash2k26/SaasAnalystics",
-      video: saasVideo,
+      video: "/saasVideo.mp4",
       image: saasImg,
     },
   ];
@@ -449,7 +446,13 @@ export function App() {
                 <SectionMinimal title="Project Details">
                   {project.video && (
                     <div className="w-full rounded-2xl border border-(--border-color) bg-(--bg-secondary) mb-10 flex items-center justify-center px-4 py-8 md:px-6">
-                      <div className="w-full max-w-[42rem] rounded-2xl overflow-hidden border border-(--border-color) shadow-md">
+                      <div
+                        className={`w-full rounded-2xl overflow-hidden border border-(--border-color) shadow-md ${
+                          project.id === "nomi"
+                            ? "max-w-[18rem]"
+                            : "max-w-[42rem]"
+                        }`}
+                      >
                         <LazyVideo
                           src={project.video}
                           className="w-full h-auto"

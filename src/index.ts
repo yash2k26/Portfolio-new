@@ -16,6 +16,9 @@ const server = serve({
     "/tenet.jpg": file("src/assets/tenet.jpg"),
     "/pulse-api.png": file("src/assets/pulse-api.png"),
     "/gemini1.png": file("src/assets/gemini1.png"),
+    "/nomi.mp4": file("src/assets/nomi.mp4"),
+    "/predictpro.mp4": file("src/assets/predictpro.mp4"),
+    "/saasVideo.mp4": file("src/assets/saasVideo.mp4"),
 
     "/api/hello": {
       async GET(req) {
