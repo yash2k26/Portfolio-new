@@ -2,8 +2,12 @@ import { serve, file } from "bun";
 import index from "./index.html";
 
 const server = serve({
-  port: 3001,
+  port: 3002,
   routes: {
+    // standalone "marshmallow pour" transition demo (try it at /pour)
+    "/pour": file("marshmallow-pour.html"),
+    // résumé PDF — the "Résumé" link opens this inline in the browser
+    "/resume.pdf": file("yash1.pdf"),
     // Serve static assets from src/assets
     "/me-bw.jpeg": file("src/assets/me-bw.jpeg"),
     "/me-color.jpeg": file("src/assets/me-color.jpeg"),

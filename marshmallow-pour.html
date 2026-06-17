@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Marshmallow Pour — scroll transition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Space+Mono:wght@400;700&family=Shantell+Sans:wght@700;800&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: auto; }
+  body { font-family: "Space Mono", monospace; background: #15151b; overflow-x: hidden; }
+
+  /* the pinned transition stage */
+  #stage { position: relative; height: 100vh; width: 100vw; overflow: hidden; }
+
+  .page { position: absolute; inset: 0; width: 100vw; height: 100vh; display: flex;
+          flex-direction: column; align-items: center; justify-content: center; gap: 22px; }
+
+  /* PAGE A — the outgoing page (light cream) */
+  #pageA { z-index: 1; background:
+      radial-gradient(120% 90% at 50% 10%, #faf7f2 0%, #f1ece2 55%, #e7e0d3 100%); color: #1a1714; }
+  /* PAGE B — the incoming page (revealed through the pour) */
+  #pageB { z-index: 2; background:
+      radial-gradient(130% 100% at 50% 0%, #20305c 0%, #161d38 55%, #0e1226 100%); color: #f3f1ff;
+      transform-origin: 50% 22%; }
+
+  .kicker { font-weight: 700; letter-spacing: .34em; font-size: 13px; opacity: .6; }
+  #pageA .kicker { color: #4b63ff; }
+  #pageB .kicker { color: #9db0ff; }
+  .big { font-family: "Bagel Fat One", system-ui; font-size: clamp(54px, 12vw, 168px); line-height: .92; }
+  #pageA .big { color: #1a1714; }
+  #pageB .big { color: #ffffff; }
+  .sub { max-width: 560px; text-align: center; font-size: 14px; line-height: 1.8; opacity: .7; }
+  .hint { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 40;
+          font-size: 11px; letter-spacing: .18em; color: #b9b2a3; opacity: .8; }
+
+  /* the pour SVG sits above both pages */
+  #liquid { position: absolute; inset: 0; width: 100vw; height: 100vh; z-index: 3;
+            pointer-events: none; display: block; }
+
+  /* spacer that creates the scroll distance the pin consumes */
+  #after { height: 100vh; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <section class="page" id="pageA">
+    <div class="kicker">01 — CURRENT PAGE</div>
+    <div class="big">scroll</div>
+    <p class="sub">Keep scrolling. A thick marshmallow pours down from the top and reveals the page underneath, dripping as it settles.</p>
+  </section>
+
+  <section class="page" id="pageB">
+    <div class="kicker">02 — REVEALED THROUGH THE POUR</div>
+    <div class="big">poured.</div>
+    <p class="sub">This page was revealed through the marshmallow's coverage in real time. Scroll back up to retract it.</p>
+  </section>
+
+  <svg id="liquid" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <!-- creamy body — smooth blend, no stripes -->
+      <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0"    stop-color="#fefcf7" />
+        <stop offset="0.55" stop-color="#fbf6ea" />
+        <stop offset="1"    stop-color="#f4ecda" />
+      </linearGradient>
+      <linearGradient id="castGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0"   stop-color="rgba(28,20,9,0.5)" />
+        <stop offset="0.5" stop-color="rgba(28,20,9,0.2)" />
+        <stop offset="1"   stop-color="rgba(28,20,9,0)" />
+      </linearGradient>
+      <!-- dark underside that hugs the lower edge → rounded thickness -->
+      <linearGradient id="rimDarkGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="rgba(74,58,33,0)" />
+        <stop offset="1" stop-color="rgba(74,58,33,0.6)" />
+      </linearGradient>
+      <!-- sharp white reflection riding the rounded lip -->
+      <linearGradient id="rimLightGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0"   stop-color="rgba(255,255,255,0)" />
+        <stop offset="0.62" stop-color="rgba(255,255,255,1)" />
+        <stop offset="1"   stop-color="rgba(255,255,255,0.35)" />
+      </linearGradient>
+      <!-- broad soft gloss on the upper body, like the letters -->
+      <linearGradient id="glossGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0"   stop-color="rgba(255,255,255,0)" />
+        <stop offset="0.5" stop-color="rgba(255,255,255,0.98)" />
+        <stop offset="1"   stop-color="rgba(255,255,255,0)" />
+      </linearGradient>
+      <!-- gooey: rounds the lobes + drips into surface-tension blobs -->
+      <filter id="gooey"><feGaussianBlur in="SourceGraphic" stdDeviation="11" result="b" />
+        <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11" /></filter>
+      <filter id="shadowBlur" x="-15%" y="-60%" width="130%" height="260%"><feGaussianBlur stdDeviation="14" /></filter>
+      <filter id="rimBlur" x="-15%" y="-90%" width="130%" height="320%"><feGaussianBlur stdDeviation="3" /></filter>
+      <filter id="glossBlur"><feGaussianBlur stdDeviation="20" /></filter>
+    </defs>
+
+    <!-- cast shadow on the page below -->
+    <path id="castPath" fill="url(#castGrad)" filter="url(#shadowBlur)" />
+    <!-- the thick creamy marshmallow mass (rounded by the gooey filter) -->
+    <g filter="url(#gooey)"><path id="bodyPath" fill="url(#bodyGrad)" /></g>
+    <!-- dark underside hugging the lower edge -->
+    <path id="darkRim" fill="url(#rimDarkGrad)" filter="url(#rimBlur)" />
+    <!-- sharp white reflection on the rounded lip -->
+    <path id="whiteRim" fill="url(#rimLightGrad)" filter="url(#rimBlur)" />
+    <!-- broad soft gloss higher on the body -->
+    <path id="glossPath" fill="url(#glossGrad)" filter="url(#glossBlur)" opacity="0.92" />
+  </svg>
+</div>
+<div id="after"></div>
+
+<div class="hint">SCROLL ↓  ·  the pour reveals page 02</div>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ============ TUNABLE CONSTANTS ============ */
+const VISCOSITY_WOBBLE = 46;   // px amplitude of the big, thick, viscous waves
+const DRIP_COUNT       = 4;    // number of drip tendrils hanging off the leading edge
+const POUR_DURATION    = 1.15; // scroll distance for a full pour, in viewport-heights (pin length)
+const EDGE_ROUGHNESS   = 1.0;  // multiplier on lobe count + amplitude
+const OVERSHOOT        = 0.07; // settle overshoot/jiggle at the rest point
+const SHADOW_DEPTH     = 88;   // px reach of the cast shadow under the mass
+const SHADOW_GAP       = 14;   // px the shadow sits below the edge (sells the thickness/lift)
+const RIM_DARK         = 30;   // px height of the dark underside band at the lower edge
+const RIM_LIGHT        = 22;   // px height of the sharp white reflection on the rounded lip
+/* ========================================== */
+
+const bodyPath = document.getElementById("bodyPath");
+const castPath = document.getElementById("castPath");
+const darkRim  = document.getElementById("darkRim");
+const whiteRim = document.getElementById("whiteRim");
+const glossPath= document.getElementById("glossPath");
+const pageB    = document.getElementById("pageB");
+const svg      = document.getElementById("liquid");
+
+let W = window.innerWidth, H = window.innerHeight;
+let progress = 0;          // 0..1 pour coverage (from scroll)
+let vel = 0;               // scroll velocity → wobble
+let velSmooth = 0;
+const N = 56;              // edge sample count
+
+function size() {
+  W = window.innerWidth; H = window.innerHeight;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  // the marshmallow is a full opaque mass now — page B stays hidden beneath it (no dark line)
+  pageB.style.display = "none";
+}
+size();
+window.addEventListener("resize", () => { size(); ScrollTrigger.refresh(); });
+
+// ease with a soft overshoot near the end (thick fluff settling)
+function settle(p) {
+  const e = p < 1 ? 1 - Math.pow(1 - p, 2.2) : 1;     // ease-out
+  const wob = Math.sin(p * Math.PI) * OVERSHOOT * (1 - p); // tiny jiggle, dies out
+  return e + wob;
+}
+
+// the leading-edge y for a given x — sum of sines + lagged drips
+function edgeY(x, leadY, t, wobAmp) {
+  const u = x / W;
+  let y = leadY;
+  // thick, high-viscosity liquid → few BIG rounded lobes, not many small ripples
+  y += wobAmp * 1.30 * Math.sin(u * Math.PI * (1.3 * EDGE_ROUGHNESS) + t * 0.0009);
+  y += wobAmp * 0.55 * Math.sin(u * Math.PI * (2.6 * EDGE_ROUGHNESS) - t * 0.0013);
+  // drips: fat rounded tendrils that lag the main mass and stretch
+  for (let d = 0; d < DRIP_COUNT; d++) {
+    const xd = (d + 0.5) / DRIP_COUNT;
+    const phase = d * 1.7;
+    const lag = 0.42 + 0.58 * Math.sin(t * 0.0011 + phase);
+    const len = (96 + 70 * Math.sin(t * 0.0007 + phase)) * (0.32 + 0.68 * progress) * lag;
+    const width = 0.026 + 0.012 * Math.sin(t * 0.0009 + phase);   // thin, long tendrils
+    const dx = (u - xd);
+    y += len * Math.exp(-(dx * dx) / (2 * width * width));
+  }
+  return y;
+}
+
+function buildPoints(leadY, t, wobAmp) {
+  const pts = [];
+  for (let k = 0; k <= N; k++) {
+    const x = (k / N) * W;
+    pts.push([x, edgeY(x, leadY, t, wobAmp)]);
+  }
+  return pts;
+}
+
+// Catmull-Rom → bezier curve commands through pts (NO leading M; pen assumed at pts[0])
+function curves(pts) {
+  let d = "";
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    const c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+    const c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+    d += `C ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)} `;
+  }
+  return d;
+}
+const f = (n) => n.toFixed(1);
+
+const off = (pts, dy) => pts.map(([x, y]) => [x, y + dy]);
+// a filled band between an upper boundary (top) and a lower boundary (bot)
+function bandPath(top, bot) {
+  return `M 0 ${f(top[0][1])} ${curves(top)} L ${W} ${f(bot[bot.length-1][1])} ${curves(bot.slice().reverse())} Z`;
+}
+
+function render(t) {
+  velSmooth += (Math.min(1, Math.abs(vel) / 2600) - velSmooth) * 0.12;
+  const wobAmp = VISCOSITY_WOBBLE * EDGE_ROUGHNESS * (1 + 1.1 * velSmooth);
+
+  const cover = settle(progress);
+  const leadY = -wobAmp * 2 + cover * (H + wobAmp * 4 + 110);
+  const edge = buildPoints(leadY, t, wobAmp);
+  const yL = edge[0][1];
+
+  // the thick creamy mass — full & opaque, from above the top down to the dripping edge
+  bodyPath.setAttribute("d", `M 0 -160 L 0 ${f(yL)} ${curves(edge)} L ${W} -160 Z`);
+
+  // dark underside hugging the very lower edge → reads rounded & thick
+  darkRim.setAttribute("d", bandPath(off(edge, -RIM_DARK), edge));
+  // sharp white reflection on the rounded lip, just above the dark underside
+  whiteRim.setAttribute("d", bandPath(off(edge, -RIM_DARK - RIM_LIGHT), off(edge, -RIM_DARK * 0.3)));
+  // broad soft gloss sheet higher up the body (like the letters' reflection)
+  glossPath.setAttribute("d", bandPath(off(edge, -250), off(edge, -88)));
+  // soft cast shadow on the page just below the dripping edge
+  castPath.setAttribute("d", bandPath(off(edge, SHADOW_GAP), off(edge, SHADOW_GAP + SHADOW_DEPTH)));
+}
+
+// #t=0.5 → freeze the pour at a static coverage (for previewing a frame)
+const mt = location.hash.match(/#t=([0-9.]+)/);
+const STATIC = mt ? parseFloat(mt[1]) : null;
+
+if (STATIC === null) {
+  ScrollTrigger.create({
+    trigger: "#stage",
+    start: "top top",
+    end: () => "+=" + (window.innerHeight * POUR_DURATION),
+    pin: true,
+    scrub: 0.5,
+    onUpdate: (self) => { progress = self.progress; vel = self.getVelocity(); },
+  });
+} else {
+  progress = STATIC;
+  document.querySelector(".hint").style.display = "none";
+}
+
+// continuous wobble loop (time-based) so the surface lives even when paused mid-scroll
+let raf;
+function loop(now) { if (STATIC !== null) progress = STATIC; render(now); raf = requestAnimationFrame(loop); }
+raf = requestAnimationFrame(loop);
+render(0);
+</script>
+</body>
+</html>
