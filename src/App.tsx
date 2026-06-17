@@ -560,7 +560,7 @@ const ABOUT_PARTS = ["Story", "Experience", "Tech Stack"];
 const SOCIALS: Array<{ label: string; href: string; ext?: boolean; img?: string }> = [
   { label: "Résumé", href: resumePdf, ext: true, img: resumePvc },
   { label: "Email", href: "mailto:bharadwaj465@gmail.com" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/", ext: true, img: linkedinPvc },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/yash-bharadawaj-387a67244/", ext: true, img: linkedinPvc },
   { label: "GitHub", href: "https://github.com/yash2k26", ext: true, img: githubPvc },
   { label: "Twitter", href: "https://x.com/Yassshhu", ext: true, img: xPvc },
 ];
